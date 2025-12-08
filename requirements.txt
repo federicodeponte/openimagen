@@ -1,0 +1,18 @@
+# OpenImagen - AI-Powered Professional Image Generation
+
+# Core AI and Image Generation
+google-genai>=0.3.0
+
+# Image processing and utilities  
+pillow>=9.0.0
+
+# Data handling
+pydantic>=2.0.0
+
+# Optional: Enhanced logging
+colorlog>=6.7.0
+
+# Development dependencies (optional)
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=5.0.0
