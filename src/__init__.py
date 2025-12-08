@@ -28,8 +28,8 @@ Example Usage:
             f.write(response.image_data)
 """
 
-from .core.imagen_generator import OpenImagen, generate_professional_image
-from .models.data_models import ImageRequest, ImageResponse, CompanyData
+from core.imagen_generator import OpenImagen, generate_professional_image
+from models.data_models import ImageRequest, ImageResponse, CompanyData
 
 __version__ = "1.0.0"
 __author__ = "OpenImagen Team"

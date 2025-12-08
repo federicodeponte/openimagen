@@ -18,7 +18,7 @@ import base64
 import logging
 from typing import Optional
 
-from ..models.data_models import ImageRequest, ImageResponse, CompanyData
+from models.data_models import ImageRequest, ImageResponse, CompanyData
 
 logger = logging.getLogger(__name__)
 
@@ -32,8 +32,8 @@ class OpenImagen:
     """
     
     # Latest Gemini models
-    IMAGE_MODEL = "gemini-3-pro-image-preview"  # Nano Banana Pro
-    TEXT_MODEL = "gemini-3-pro-preview"  # For scene generation
+    IMAGE_MODEL = "models/gemini-3-pro-image-preview"  # Nano Banana Pro
+    TEXT_MODEL = "models/gemini-2.5-flash"  # For scene generation (more efficient)
     
     def __init__(self, api_key: Optional[str] = None):
         """
@@ -128,23 +128,8 @@ class OpenImagen:
         scene descriptions for ANY topic/industry combination.
         """
         try:
-            # Create focused prompt for scene generation
-            scene_prompt = f\"\"\"Generate a professional, realistic scene description for a business editorial photograph about "{keyword}" in the {industry} industry.
-
-Requirements:
-- Describe a specific, photographable workplace scene (not abstract concepts)
-- Focus on real people doing authentic work related to this topic
-- Include environmental details that make it feel genuine and lived-in
-- Avoid generic office descriptions - be specific to the topic
-- Maximum 2 sentences, around 30-40 words
-- Professional but not sterile - show real work happening
-
-Examples of good scene descriptions:
-- "Software engineer explaining code architecture to colleagues at a standing desk, laptops open with multiple monitors showing data visualizations. Coffee cups and notebooks scattered naturally."
-- "Construction supervisor reviewing safety protocols with team on-site, hard hats and high-vis vests visible. Building materials and equipment in background under natural daylight."
-- "Healthcare administrator analyzing patient flow data on tablet in hospital corridor. Medical staff moving naturally in background, professional but warm atmosphere."
-
-Generate scene description for: {keyword} ({industry} industry)\"\"\"
+            # Create simple prompt for scene generation  
+            scene_prompt = f"""Describe a specific workplace scene for {keyword} in {industry}. 2 sentences, 40 words max. Show real people working with authentic details."""
             
             # Use Gemini to generate scene
             response = self.client.models.generate_content(
@@ -235,7 +220,7 @@ Generate scene description for: {keyword} ({industry} industry)\"\"\"
                 f"Additional requirements: {request.company_data.custom_prompt_instructions}",
             ])
         
-        return "\\n".join(prompt_parts)
+        return "\n".join(prompt_parts)
     
     def _generate_with_retry(self, prompt: str, max_retries: int = 3) -> Optional[bytes]:
         """

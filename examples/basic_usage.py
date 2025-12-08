@@ -6,7 +6,10 @@ Demonstrates how to generate professional business images for any topic.
 """
 
 import os
-from openimagen import generate_professional_image, OpenImagen, ImageRequest, CompanyData
+import sys
+sys.path.insert(0, '../src')
+from core.imagen_generator import generate_professional_image, OpenImagen
+from models.data_models import ImageRequest, CompanyData
 
 
 def example_1_quick_generation():
